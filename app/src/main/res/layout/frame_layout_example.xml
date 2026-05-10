@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!--
+        FrameLayout：一种简单的布局容器，子视图按在 XML 中声明的顺序叠放。
+        - 先声明的子视图位于下层，后声明的子视图会覆盖在上层。
+        - 常用于实现重叠效果（例如将文本或按钮放在图片之上）。
+    -->
+
+    <!--
+        占位背景图片（ImageView）：
+        - 宽高为 match_parent，使其填充父容器，作为最底层背景。
+        - 使用 android:background 代替 src 只是演示占位背景色，实际可替换为图片资源。
+    -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DDDDDD" />
+
+    <!--
+        第一个 TextView（更大的方块，位于 ImageView 之上）：
+        - `android:layout_width/height="250dp"`：固定尺寸方块。
+        - `android:layout_gravity="center"`：在 FrameLayout 中居中显示。
+        - `android:background`：设置背景颜色以便观察层级关系。
+        - `android:text`：显示文本，便于区分这是“底层”（在这组 TextView 中最先声明）。
+        - `android:gravity="bottom|end"`：文本在 TextView 内靠右下角显示。
+        - `android:padding`：内边距，避免文本紧贴边缘。
+        - `android:textColor`：文本颜色为白色，保证与背景对比清晰。
+    -->
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="#FF9800"
+        android:text="底层 (最先定义)"
+        android:gravity="bottom|end"
+        android:padding="8dp"
+        android:textColor="#FFF" />
+
+    <!--
+        第二个 TextView（中等大小，覆盖在上一个 TextView 之上）：
+        - 较小的尺寸（180dp），同样居中，显示为中层。
+        - 示例用来演示多个子视图的叠放顺序与视觉层级。
+    -->
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:background="#4CAF50"
+        android:text="中层"
+        android:gravity="bottom|end"
+        android:padding="8dp"
+        android:textColor="#FFF" />
+
+    <!--
+        第三个 TextView（最小，位于最顶层）：
+        - 宽高 100dp，居中，最后声明，因此在视觉上覆盖在前两个 TextView 之上。
+        - 用于演示顶层视图的显示与定位属性。
+    -->
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="#2196F3"
+        android:text="顶层 (最后定义)"
+        android:gravity="bottom|end"
+        android:padding="8dp"
+        android:textColor="#FFF" />
+
+</FrameLayout>

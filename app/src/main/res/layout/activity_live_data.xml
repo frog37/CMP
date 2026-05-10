@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    tools:context=".livedata.LiveDataActivity">
+
+    <!-- 用来展示文字数据的 TextView -->
+    <TextView
+        android:id="@+id/tv_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="初始数字：0"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="状态：正常"
+        android:textSize="16sp"
+        android:layout_marginBottom="32dp" />
+
+    <!-- 演示LiveData数据双向交互的按钮 -->
+    <Button
+        android:id="@+id/btn_increment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="增加计数 (+1)" />
+
+    <Button
+        android:id="@+id/btn_decrement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="减少计数 (-1)" />
+
+    <Button
+        android:id="@+id/btn_simulate_network"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="模拟后台网络请求 (延迟3秒更新)" />
+    
+</LinearLayout>

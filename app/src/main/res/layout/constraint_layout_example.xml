@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    根布局使用 ConstraintLayout（约束布局）
+    xmlns:android: 引用 Android 系统自带的属性（如 layout_width, textColor）
+    xmlns:app:   引用自定义属性或 Support Library / Jetpack 库中的属性（如 layout_constraintTop_toTopOf）
+    android:padding: 整个界面距离屏幕边缘 16dp 的内边距
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- 约束布局可以通过约束线自由定位控件，性能高，是现在的推荐标准 -->
+
+    <!--
+        id: tv_title (TextView 的唯一标识)
+        layout_width: wrap_content (宽度包裹内容)
+        text: 显示的文字
+        textSize: 24sp (字体大小，sp 用于适配系统字体设置)
+        textStyle: bold (加粗)
+
+        约束属性 (Constraints):
+        app:layout_constraintTop_toTopOf="parent": 顶部对齐父容器
+        app:layout_constraintStart_toStartOf="parent": 左侧对齐父容器
+        app:layout_constraintEnd_toEndOf="parent": 右侧对齐父容器
+        (这三个属性共同作用，使标题水平居中)
+        android:layout_marginTop: 距离顶部 32dp
+    -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="欢迎回到APP"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <!--
+        用户名输入框
+        layout_width: 0dp (在 ConstraintLayout 中，0dp 代表 MATCH_CONSTRAINT)
+        hint: 输入框为空时显示的提示文字
+        约束:
+        layout_constraintTop_toBottomOf: 顶部对齐到 tv_title 的底部
+        layout_constraintStart/End_toStart/EndOf: 左右分别对齐父容器，使其铺满宽度
+    -->
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="请输入用户名"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--
+        密码输入框
+        inputType: textPassword (设置输入类型为密码，会显示为圆点)
+        layout_marginTop: 16dp (与上方用户名控件间隔 16dp)
+        约束: 顶部对齐到 et_username 的底部
+    -->
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/et_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 演示约束布局特有的一对一或链式分布 (Chains) -->
+    <!--
+      登录按钮
+      layout_width: 0dp (铺满剩余空间)
+      layout_marginEnd: 右侧留出 8dp 间距，与右侧按钮产生间隔
+      约束:
+      layout_constraintTop_toBottomOf: 顶部对齐到密码框底部
+      layout_constraintStart_toStartOf: 左侧对齐父容器
+      layout_constraintEnd_toStartOf: 右侧对齐到 btn_register 的左侧 (形成左右连接)
+  -->
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_register" />
+
+    <!--
+        注册按钮
+        layout_marginStart: 左侧留出 8dp 间距
+        约束:
+        layout_constraintStart_toEndOf: 左侧对齐到 btn_login 的右侧
+        layout_constraintEnd_toEndOf: 右侧对齐父容器
+        (这两个按钮通过 End_toStart 和 Start_toEnd 相互引用，形成了水平链式布局)
+    -->
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@id/et_password"
+        app:layout_constraintStart_toEndOf="@id/btn_login"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

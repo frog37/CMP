@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     这是给 RecyclerView 中的每一行 (Item) 指定的专属布局文件。
+     我们通过纵向的 RecyclerView 展示，所以这里的高度 layout_height 设置为 wrap_content 即可，
+     如果设置为 match_parent，那第一行就会占满整个屏幕了！
+     排列方向 orientation="horizontal" 代表这一行内容是水平从左向右排列的。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <!-- 
+         左侧的图标图片 (ImageView)
+         宽高固定为 48dp，并随便给了一个系统自带的小相机图标作为预览占位图 
+    -->
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <!-- 
+         右侧的文本 (TextView)
+         layout_marginStart: 距离左边图片 16dp
+         layout_gravity="center_vertical": 在这一行里面纵向居中对齐
+    -->
+    <TextView
+        android:id="@+id/itemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="18sp"
+        android:text="这里会在代码里被替换成真实的数据"/>
+
+</LinearLayout>

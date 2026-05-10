@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.layoutlearn">
+
+    <!-- 允许应用程序进行网络请求的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LayoutLearn" >
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RetrofitExampleActivity" android:exported="true"/>
+        <!-- 注册新创建的 Activity -->
+        <activity android:name=".ListViewExampleActivity" android:exported="true"/>
+        <activity android:name=".RecyclerViewExampleActivity" android:exported="true"/>
+        <activity android:name="com.example.Room.RoomDemoActivity" android:exported="true"/>
+        <activity android:name=".livedata.LiveDataActivity" android:exported="true"/>
+        <activity android:name=".looper.LooperActivity" android:exported="true"/>
+        <activity android:name=".composeUI.ComposeDemoActivity" android:exported="true"/>
+        <activity android:name=".composeUI.MaterialDesignDemoActivity" android:exported="true"/>
+        <activity android:name="com.example.binding.BindingDemoActivity" android:exported="true"/>
+
+        <!-- Intent 学习专用 Activity -->
+        <activity android:name="com.example.intent.IntentDemoActivity" android:exported="true"/>
+        <!-- CMP 学习专用 Activity -->
+        <activity android:name="com.example.layoutlearn.example.cmp.CMPDemoActivity" android:exported="true"/>
+        
+        <activity android:name="com.example.intent.TargetActivity" android:exported="true">
+            <!-- 这里就是 intent-filter 的体现，它像一张"招聘启事"，表示这个 Activity 能处理什么工作 -->
+            <intent-filter>
+                <!-- 1. 声明它能响应我们自定义的一个 Action -->
+                <action android:name="com.example.intent.ACTION_CUSTOM_TEST" />
+                <!-- 2. 隐式 Intent 在被系统解析时，默认会带上 DEFAULT 类别，所以必须要声明它，否则会拦截失败 -->
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

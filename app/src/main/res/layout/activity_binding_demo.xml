@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DataBinding 需要在最外层使用 <layout> 标签包裹 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- <data> 标签用于定义界面所需绑定的数据和变量 -->
+    <data>
+        <!-- 定义一个变量：
+             name="user" 表示在下方的 XML 代码中使用的名字
+             type 分配了该变量对应的类的全限定名，必须跟你自定义的类准确对应 
+        -->
+        <variable
+            name="user"
+            type="com.example.binding.UserModel" />
+    </data>
+
+    <!-- 这是我们原本正常的 UI 布局界面 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="【 1. DataBinding 演示 】"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原理：直接在 XML 中把数据(Data)绑定到视图(View)上。一旦数据改变，UI自动更新。"
+            android:textSize="13sp"
+            android:layout_marginTop="5dp" />
+
+        <!-- DataBinding: 使用 @{} 语法，自动将 user.name 绑定到 UI 并展示出来 -->
+        <!-- 当数据对象 UserModel 使用了可观察数据(ObservableField)时，此处 UI 将自动实现刷新响应 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`用户名：` + user.name}"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`年龄： ` + String.valueOf(user.age) + `岁`}"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginVertical="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="【 2. ViewBinding 演示 】"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="原理：彻底甩掉 findViewById，自动生成强类型的 View 对象调用。"
+            android:textSize="13sp"
+            android:layout_marginTop="5dp" />
+
+        <!-- ViewBinding: 这个 TextView 我们不在 XML 中用 @{} 指定它的数据 -->
+        <!-- 而是给它加个 id，后续通过生成的 Binding 对象在 Activity 的代码里面直接引用并赋值 -->
+        <TextView
+            android:id="@+id/tv_view_binding_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="等待在代码中通过 ViewBinding 改变我..."
+            android:textSize="16sp"
+            android:textColor="#FF5722"
+            android:layout_marginTop="15dp" />
+
+        <Button
+            android:id="@+id/btn_change_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击更新数据，体验 Binding 效果"
+            android:layout_marginTop="30dp" />
+    </LinearLayout>
+</layout>

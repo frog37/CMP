@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     外层使用 LinearLayout，以垂直(vertical)方向排列其中的子控件。
+     padding="16dp" 意味着外层会有一个 16dp 的内边距。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 顶部的说明标题 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ListView 示例"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 简单的概念说明文本 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ListView是Android早期用来展示列表数据的控件。它通过Adapter将数据源映射到界面的每一项。但它在处理复杂列表时性能不如 RecyclerView。"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 
+         定义 ListView 控件本身：
+         - layout_width="match_parent"：宽度撑满父容器
+         - layout_height="match_parent"：由于它是最后一个控件，高度撑满剩余空间
+         - divider：设置列表项之间分割线的颜色 (这里使用了系统自带的深灰色)
+         - dividerHeight：设置分割线的高度（即粗细）
+    -->
+    <ListView
+        android:id="@+id/myListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
+
+</LinearLayout>

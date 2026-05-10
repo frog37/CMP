@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intent 学习演示"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnExplicitIntent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显式 Intent (普通跳转)"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnIntentWithData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="携带数据跳转"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnIntentForResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="跳转并获取返回结果"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnImplicitIntent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐式 Intent (Action+Data 打开网页)"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnIntentFilterTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐式 Intent (验证 Intent-Filter 拦截)"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnActionSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐式 Intent (Action+Type 分享文本)"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnCategoryHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐式 Intent (Action+Category 返回桌面)"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="返回结果将显示在这里"
+        android:textSize="16sp"
+        android:textColor="#FF0000"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
