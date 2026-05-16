@@ -8,9 +8,27 @@ import com.example.layoutlearn.databinding.ActivityLiveDataBinding
 
 class LiveDataActivity : AppCompatActivity() {
 
-    // 使用 lazy 委托结合 viewModels() 拓展函数，初始化ViewModel。
-    // 这会将 ViewModel 的生命周期与当前 Activity 绑定。
-    // 即便屏幕旋转导致 Activity 销毁重建，依然会返回同一个 ViewModel 实例。
+    // 使用 viewModels() 拓展函数，初始化 ViewModel。
+    // 这里的 by 是 Kotlin 的“属性委托”语法，意思是：viewModel 这个属性的取值逻辑交给 viewModels() 返回的委托对象管理。
+    // 它不是在这一行代码执行时立刻 new 出 LiveDataViewModel，而是采用“懒加载”方式：第一次真正访问 viewModel 时才去取或创建实例。
+    // 你可以把它粗略理解成：
+    // private val viewModel by lazy { ViewModelProvider(this).get(LiveDataViewModel::class.java) }
+    // 但真实底层比这个更完整，里面还包含了 ViewModelStore、Factory 和生命周期托管等机制。
+    //
+    // 第一次访问 viewModel 时，底层大致会经历下面几步：
+    // 1. 调用委托对象的 getValue()。
+    // 2. 基于当前 Activity 创建一个 ViewModelProvider。
+    // 3. 去当前 Activity 持有的 ViewModelStore 里查找：之前是否已经创建过 LiveDataViewModel。
+    // 4. 如果已经有现成实例，就直接返回；如果没有，就通过 Factory 创建一个新的 LiveDataViewModel。
+    // 5. 新建出来后，会被存回 ViewModelStore，供后续重复访问时直接复用。
+    //
+    // 所以它并不是“每次访问都重新实例化”，而是“同一个 Activity 作用域内按需创建一次，然后持续复用”。
+    // 这也是为什么即便屏幕旋转导致 Activity 销毁重建，通常依然能拿到同一个 ViewModel 实例：
+    // 配置变更发生时，系统会保留这份 ViewModelStore；新 Activity 重建后，再通过 ViewModelProvider 取值时，就会拿回之前那个实例。
+    // 只有当 Activity 真正结束（而不是仅仅因为旋转而重建）时，对应的 ViewModelStore 才会被清空，ViewModel 才会进入 onCleared() 生命周期并最终销毁。
+    //
+    // 一句话总结：by viewModels() 的底层就是通过 ViewModelProvider 从当前 Activity 的 ViewModelStore 取 ViewModel；
+    // 有就复用，没有就借助 Factory 创建，并把它的生命周期绑定到当前 Activity 的作用域上。
     private val viewModel: LiveDataViewModel by viewModels()
 
     // 视图绑定 (ViewBinding) 懒加载形式，避免手写 findViewById

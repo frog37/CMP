@@ -64,11 +64,17 @@ class LiveDataViewModel : ViewModel() {
             // 在协程内模拟获取到了服务器返回的新数据
             val newRandomValue = (100..999).random()
             
-            // 注意：虽然当前环境是在协程中，如果你切换了 Dispatchers.IO，则必须使用 postValue
-            // MutableLiveData 的 postValue() 方法专门用于在 【后台线程】 更新数据，
-            // 它会自动将数据传递到主线程通知观察者。
-            // 这里因为默认 launch 是主线程，其实可以用 value 也可以用 postValue。
-            // 这里使用 postValue 演示在后台线程更新数据的做法：
+            // 注意：虽然当前环境是在协程中，如果你切换了 Dispatchers.IO，则必须使用 postValue。
+            // 原因是 .value = xxx 本质上调用的是 setValue()，它只能在主线程执行；
+            // 在后台线程改 LiveData 时使用 postValue，主要是为了避免三个问题：
+            // 1. 避免线程违规：后台线程直接 setValue() 可能触发主线程约束错误。
+            // 2. 避免观察者在错误线程收到回调：LiveData 往往和 Activity / Fragment / Compose 绑定，通知应统一在主线程分发。
+            // 3. 避免内部状态竞争和分发顺序混乱：把更新统一切回主线程后，当前值、版本号、观察者通知过程更容易保持一致。
+            // postValue() 的作用就是：允许你在后台线程安全地发起更新，再把真正的赋值和通知切回主线程完成。
+            // 它不会阻塞或挂起当前后台线程，而是异步投递后立刻返回；后台线程可以继续往下执行。
+            // 但要注意，如果短时间连续多次 postValue，在主线程真正处理之前，中间值可能会被合并。
+            // 这里因为默认 launch 是主线程，其实可以用 value，也可以用 postValue。
+            // 这里使用 postValue，主要是为了演示后台线程更新 LiveData 时应该采用的写法：
             _counter.postValue(newRandomValue)
             _status.postValue("状态：加载完成！网络数据: $newRandomValue")
         }

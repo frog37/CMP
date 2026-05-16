@@ -35,6 +35,7 @@
         <activity android:name=".composeUI.ComposeDemoActivity" android:exported="true"/>
         <activity android:name=".composeUI.MaterialDesignDemoActivity" android:exported="true"/>
         <activity android:name="com.example.binding.BindingDemoActivity" android:exported="true"/>
+        <activity android:name="com.example.binding.TraditionalDemoActivity" android:exported="true"/>
 
         <!-- Intent 学习专用 Activity -->
         <activity android:name="com.example.intent.IntentDemoActivity" android:exported="true"/>
