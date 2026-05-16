@@ -1,16 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("org.jetbrains.kotlin.android") version "2.0.21"
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
-    id("com.google.devtools.ksp") version "2.2.10-2.0.2"
+    id("com.google.devtools.ksp") version "2.0.21-1.0.28"
 }
 
 android {
     namespace = "com.example.layoutlearn"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.layoutlearn"
@@ -37,9 +34,13 @@ android {
         dataBinding = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {

@@ -70,6 +70,10 @@ class LooperActivity : AppCompatActivity() {
             override fun handleMessage(msg: Message) {
                 // 这个方法将在 Main Looper 所在的线程（即主 UI 线程）被调用
                 // 因此在这里更新 UI 是绝对安全的
+                //
+                // 【重要辨析】这个方法只在调用 sendMessage(msg) 时才会被触发。
+                // 如果调用的是 post { ... }，消息会被直接包装成一个 Runnable 执行，
+                // 不会走到这里。post 的分发路径是：Looper 取到消息后直接执行 Runnable.run()。
                 when (msg.what) {
                     MSG_UPDATE_UI -> {
                         val textData = msg.obj as String
@@ -121,7 +125,7 @@ class LooperActivity : AppCompatActivity() {
         Thread {
             // 这是一个普通的工作线程，它没有自己的 Looper，不能用来显示Toast或做UI相关的操作
             Thread.sleep(2000) // 模拟耗时2秒
-            
+
             // 耗时任务完成，准备发送消息给主线程
             val msg = Message.obtain().apply {
                 what = MSG_UPDATE_UI
@@ -165,6 +169,10 @@ class LooperActivity : AppCompatActivity() {
                         
                         // 由于处于后台线程不能修改 TextView，
                         // 如果要在处理完毕后告诉用户，还需要再用 mainHandler 转发给主线程！
+                        //
+                        // 这里用 post { ... } 而不是 sendMessage(msg)，因为数据 taskName
+                        // 已经在当前 lambda 的闭包里了，直接写代码更简洁。
+                        // 如果用 sendMessage，还需要手动构造 Message、塞入 msg.obj，再在 handleMessage 里提取——多此一举。
                         mainHandler.post {
                             statusTextView.text = "后台 Looper 刚处理完了: $taskName"
                         }
