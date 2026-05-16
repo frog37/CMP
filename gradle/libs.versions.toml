@@ -1,5 +1,9 @@
 [versions]
-agp = "9.1.1"
+# AGP（Android Gradle Plugin）是 Gradle 的 Android 插件，负责编译、打包、签名等 Android 构建任务。
+# AGP 版本与 Gradle 版本有严格的对应关系：AGP 升级时通常必须同步升级 Gradle。
+# 例如：AGP 8.9.x 要求 Gradle 8.11.1+；AGP 9.x 要求 Gradle 9.3.1+。
+# 官方版本对照表：https://developer.android.com/studio/releases/gradle-plugin#updating-gradle
+agp = "8.9.1"
 coreKtx = "1.18.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
